@@ -13,7 +13,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 # Available Updates count holder
-Nupd = []
+#Nupd = []
 avail = ""
 
 # Use config.yml file to allow for compatibility with
@@ -32,16 +32,22 @@ def count():
     p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     p2 = subprocess.Popen(['wc', '-l'], stdin=p1.stdout, stdout=subprocess.PIPE)
     output = ((p2.communicate()[0]).decode()).rstrip('\n')
-    digit = str(output)+" Updates"
-    global Nupd
-    Nupd.append(digit)
+    #digit = str(output)+" Updates"
+    #global Nupd
+    #Nupd.append(digit)
     global avail
-    avail = Nupd[-1]
+    #avail = Nupd[-1]
+    avail = str(output)+" Updates"
 
 # Run system update
 def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu']
     subprocess.Popen(cmd)
+
+def newText(event):
+    count()
+    option1.setText(avail)
+    tray.setToolTip(avail)
 
 # Initially populate available updates count
 count()
@@ -67,6 +73,7 @@ tray.setVisible(True)
 menu = QMenu()
 option1 = QAction(avail)
 option1.triggered.connect(update)
+option1.triggered.connect(newText)
 menu.addAction(option1)
 
 # To quit the app
@@ -78,13 +85,9 @@ menu.addAction(quit)
 tray.setContextMenu(menu)
 
 # Update the labels for available updates count
-for i in Nupd:
-    option1.triggered.connect(lambda bVal, menuItem=avail: addLabel(bVal,menuItem))
-    option1.setText(avail)
-    tray.setToolTip(avail)
-
-def addLabel(self, menuItem):
-    print(menuItem)
-
+#for i in Nupd:
+#    option1.triggered.connect(lambda bVal, menuItem=avail: newText(bVal,menuItem))
+#    option1.setText(avail)
+#    tray.setToolTip(avail)
 
 app.exec_()
