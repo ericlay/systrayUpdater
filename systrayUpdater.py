@@ -65,7 +65,7 @@ menu.addAction(option1)
 # Set up timer to update count
 timer = QTimer()
 timer.timeout.connect(newText)
-timer.start(10000)
+timer.start(600000)
 
 # To quit the app
 quit = QAction("Quit")
