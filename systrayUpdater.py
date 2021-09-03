@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 """
-Current status is; kinda broken
-need to complete dynamic labels for available updates
+Current status is: kinda broken
+Need to complete dynamic labels for available updates
 """
 
 # Get needed modules
@@ -13,7 +13,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 # Available Updates count holder
-#Nupd = []
 avail = ""
 
 # Use config.yml file to allow for compatibility with
@@ -32,11 +31,7 @@ def count():
     p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     p2 = subprocess.Popen(['wc', '-l'], stdin=p1.stdout, stdout=subprocess.PIPE)
     output = ((p2.communicate()[0]).decode()).rstrip('\n')
-    #digit = str(output)+" Updates"
-    #global Nupd
-    #Nupd.append(digit)
     global avail
-    #avail = Nupd[-1]
     avail = str(output)+" Updates"
 
 # Run system update
@@ -44,21 +39,11 @@ def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu']
     subprocess.Popen(cmd)
 
-def newText(event):
-    count()
-    option1.setText(avail)
-    tray.setToolTip(avail)
-
 # Initially populate available updates count
 count()
 
 app = QApplication([])
 app.setQuitOnLastWindowClosed(False)
-
-# Set up timer to update count
-timer = QTimer()
-timer.timeout.connect(count)
-timer.start(10000)
 
 # Adding an icon
 icon = QIcon(icn)
@@ -76,6 +61,16 @@ option1.triggered.connect(update)
 option1.triggered.connect(newText)
 menu.addAction(option1)
 
+def newText(event):
+    count()
+    option1.setText(avail)
+    tray.setToolTip(avail)
+
+# Set up timer to update count
+timer = QTimer()
+timer.timeout.connect(newText)
+timer.start(10000)
+
 # To quit the app
 quit = QAction("Quit")
 quit.triggered.connect(app.quit)
@@ -83,11 +78,5 @@ menu.addAction(quit)
 
 # Adding options to the System Tray
 tray.setContextMenu(menu)
-
-# Update the labels for available updates count
-#for i in Nupd:
-#    option1.triggered.connect(lambda bVal, menuItem=avail: newText(bVal,menuItem))
-#    option1.setText(avail)
-#    tray.setToolTip(avail)
 
 app.exec_()
