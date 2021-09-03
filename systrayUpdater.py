@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
 """
-Current status is; it runs, it will initially get
-number of updates, it will open new terminal window
-and complete update (keeping the window open?),
-IT DOES NOT UPDATE THE COUNT.
+Current status is; kinda broken
+need to complete dynamic labels for available updates
 """
 
 # Get needed modules
