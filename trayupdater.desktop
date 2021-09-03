@@ -1,8 +1,7 @@
 [Desktop Entry]
 Name=Tray Updater
-#Version=0.1
-Icon=/home/ez/NextCloud/Projects/Python/systrayUpdater/blue-logo.png
-Exec=python /home/ez/NextCloud/Projects/Python/systrayUpdater/first.py
+Icon=/home/Git/systrayUpdater/blue-logo.png
+Exec=python /home/Git/systrayUpdater/first.py
 Terminal=false
 Type=Application
 Categories=Utility

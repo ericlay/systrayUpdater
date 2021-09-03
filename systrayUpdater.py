@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 
-"""
-Current status is: kinda broken
-Need to complete dynamic labels for available updates
-"""
-
 # Get needed modules
 import yaml
 import subprocess
@@ -39,7 +34,13 @@ def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu']
     subprocess.Popen(cmd)
 
-# Initially populate available updates count
+# Sets new text for available updates
+def newText():
+    count()
+    option1.setText(avail)
+    tray.setToolTip(avail)
+
+# Initially populate available updates
 count()
 
 app = QApplication([])
@@ -60,11 +61,6 @@ option1 = QAction(avail)
 option1.triggered.connect(update)
 option1.triggered.connect(newText)
 menu.addAction(option1)
-
-def newText(event):
-    count()
-    option1.setText(avail)
-    tray.setToolTip(avail)
 
 # Set up timer to update count
 timer = QTimer()
