@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=SysTrayUpdater
+Exec=/home/ez/Git/systrayUpdater/systrayUpdater.py
+Icon=/home/ez/Git/systrayUpdater/blue-logo.png
+Terminal=false
+StartupNotify=false
+Categories=Utility;
