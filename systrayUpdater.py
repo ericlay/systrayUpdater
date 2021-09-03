@@ -15,6 +15,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 # Available Updates count holder
+Nupd = []
 avail = ""
 
 # Use config.yml file to allow for compatibility with
@@ -33,8 +34,8 @@ def count():
     p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     p2 = subprocess.Popen(['wc', '-l'], stdin=p1.stdout, stdout=subprocess.PIPE)
     output = ((p2.communicate()[0]).decode()).rstrip('\n')
-    Nupd = []
     digit = str(output)+" Updates"
+    global Nupd
     Nupd.append(digit)
     global avail
     avail = Nupd[-1]
@@ -77,5 +78,11 @@ menu.addAction(quit)
 
 # Adding options to the System Tray
 tray.setContextMenu(menu)
+
+# Update the labels for available updates count
+for i in Nupd:
+    option1.triggered.connect(lambda menuItem=text: self.dostuff(menuItem))
+    option1.setText(text)
+    tray.setToolTip(text)
 
 app.exec_()
