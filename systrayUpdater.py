@@ -79,8 +79,12 @@ tray.setContextMenu(menu)
 
 # Update the labels for available updates count
 for i in Nupd:
-    option1.triggered.connect(lambda menuItem=text: self.dostuff(menuItem))
-    option1.setText(text)
-    tray.setToolTip(text)
+    option1.triggered.connect(lambda bVal, menuItem=avail: addLabel(bVal,menuItem))
+    option1.setText(avail)
+    tray.setToolTip(avail)
+
+def addLabel(self, menuItem):
+    print(menuItem)
+
 
 app.exec_()
