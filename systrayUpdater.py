@@ -13,15 +13,11 @@ avail = ""
 
 # Use config.yml file to allow for compatibility with
 # most terminal emulators possible & custom icon
-#confPath = "~/.config/systrayUpdater/systrayUpdater.yml"
-#conf = path.expanduser(confPath)
 with open(path.expanduser("~/.config/systrayUpdater/systrayUpdater.yml")) as f:
     conf = yaml.load(f, yaml.FullLoader)
     term = str(conf['terminal'])
     opt = str(conf['option'])
     wait = int(conf['timer']) * 60000
-    #icnPath = "~/.config/systrayUpdater/" + str(conf['icon'])
-    #icn = path.expanduser(icnPath)
     icn = path.join(path.expanduser("~/.config/systrayUpdater/"), str(conf['icon']))
     f.close()
 
