@@ -3,6 +3,7 @@
 # Get needed modules
 import yaml
 import subprocess
+from os import path
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -12,11 +13,15 @@ avail = ""
 
 # Use config.yml file to allow for compatibility with
 # most terminal emulators possible & custom icon
-with open('config.yml') as f:
+confPath = "~/.config/systrayUpdater/systrayUpdater.yml"
+conf = path.expanduser(confPath)
+with open(conf) as f:
     conf = yaml.load(f, yaml.FullLoader)
     term = str(conf['terminal'])
     opt = str(conf['option'])
-    icn = str(conf['icon'])
+    wait = int(conf['timer']) * 60000
+    icnPath = "~/.config/systrayUpdater/" + str(conf['icon'])
+    icn = path.expanduser(icnPath)
     f.close()
 
 # Run checkupdates command
@@ -65,7 +70,7 @@ menu.addAction(option1)
 # Set up timer to update count
 timer = QTimer()
 timer.timeout.connect(newText)
-timer.start(600000)
+timer.start(wait)
 
 # To quit the app
 quit = QAction("Quit")
