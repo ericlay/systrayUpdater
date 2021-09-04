@@ -22,7 +22,7 @@ with open(path.expanduser("~/.config/systrayUpdater/systrayUpdater.yml")) as f:
     wait = int(conf['timer']) * 60000
     #icnPath = "~/.config/systrayUpdater/" + str(conf['icon'])
     #icn = path.expanduser(icnPath)
-    icn = path.expanduser("~/.config/systrayUpdater/") + str(conf['icon'])
+    icn = path.join(path.expanduser("~/.config/systrayUpdater/"), str(conf['icon']))
     f.close()
 
 # Run checkupdates command
