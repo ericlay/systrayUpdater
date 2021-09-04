@@ -2,8 +2,11 @@
 #  systrayUpdater #
 # ----------------#
 
+# Terminal emulator launch command and execute option
 terminal: terminator
 option: -x
 # timer value is set to minutes
 timer: 10
+# custom icons should follow Arch linux standards
+# custom icons should be stored in ~/.config/systrayUpdater
 icon: white-logo.png
