@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import *
 avail = ""
 
 # Use config.yml file to allow for compatibility with
-# most terminal emulators possible & custom icon
+# most terminal emulators possible & custom icon / timer duration
 with open(path.expanduser("~/.config/systrayUpdater/systrayUpdater.yml")) as f:
     conf = yaml.load(f, yaml.FullLoader)
     term = str(conf['terminal'])

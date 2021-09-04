@@ -1,3 +1,9 @@
+# ----------------#
+#  systrayUpdater #
+# ----------------#
+
 terminal: terminator
 option: -x
+# timer value is set to minutes
+timer: 10
 icon: white-logo.png
