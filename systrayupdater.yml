@@ -10,3 +10,6 @@ timer: 10
 # custom icons should follow Arch linux standards
 # custom icons should be stored in ~/.config/systrayUpdater
 icon: white-logo.png
+# If you would like to automatically download pkg's to cache
+# uses 'checkupdates -d' in background
+cache: true

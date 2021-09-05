@@ -17,6 +17,7 @@ with open(path.expanduser("~/.config/systrayUpdater/systrayUpdater.yml")) as f:
     conf = yaml.load(f, yaml.FullLoader)
     term = str(conf['terminal'])
     opt = str(conf['option'])
+    cache = str(conf['cache']).capitalize()
     wait = int(conf['timer']) * 60000
     icn = path.join(path.expanduser("~/.config/systrayUpdater/"), str(conf['icon']))
     f.close()
@@ -31,6 +32,11 @@ def count():
     global avail
     avail = str(output)+" Updates"
 
+# Download pkg's to cache
+def cacheUpdates():
+    cmd = ['checkupdates', '-d']
+    subprocess.cmd(cmd)
+
 # Run system update
 def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu']
@@ -44,6 +50,10 @@ def newText():
 
 # Initially populate available updates
 count()
+
+# Download pkg's to cache
+if cache == True:
+    cacheUpdates()
 
 app = QApplication([])
 app.setQuitOnLastWindowClosed(False)
@@ -67,6 +77,8 @@ menu.addAction(option1)
 # Set up timer to update count
 timer = QTimer()
 timer.timeout.connect(newText)
+# Download pkg's to cache on timeout
+timer.timeout.connect(cacheUpdates)
 timer.start(wait)
 
 # To quit the app
