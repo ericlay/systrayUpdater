@@ -35,7 +35,7 @@ def count():
 # Download pkg's to cache
 def cacheUpdates():
     cmd = ['checkupdates', '-d']
-    subprocess.cmd(cmd)
+    subprocess.run(cmd)
 
 # Run system update
 def update():
@@ -52,7 +52,7 @@ def newText():
 count()
 
 # Download pkg's to cache
-if cache == True:
+if eval(cache) == True:
     cacheUpdates()
 
 app = QApplication([])
@@ -78,7 +78,7 @@ menu.addAction(option1)
 timer = QTimer()
 timer.timeout.connect(newText)
 # Download pkg's to cache on timeout
-if cache == True:
+if eval(cache) == True:
     timer.timeout.connect(cacheUpdates)
 timer.start(wait)
 
