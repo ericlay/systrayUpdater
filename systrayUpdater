@@ -78,7 +78,8 @@ menu.addAction(option1)
 timer = QTimer()
 timer.timeout.connect(newText)
 # Download pkg's to cache on timeout
-timer.timeout.connect(cacheUpdates)
+if cache == True:
+    timer.timeout.connect(cacheUpdates)
 timer.start(wait)
 
 # To quit the app
