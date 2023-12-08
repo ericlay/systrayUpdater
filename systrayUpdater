@@ -70,31 +70,29 @@ def update():
 app = QApplication([])
 app.setQuitOnLastWindowClosed(False)
 
-# Set up timer to update count
+# Set up timer
 updateTimer = QTimer()
 updateTimer.timeout.connect(count)
 updateTimer.singleShot(1,count) # Initially populate available updates
 updateTimer.start(wait)
 
-# Adding items to the menu 
+# Adding items to the tray
 tray = QSystemTrayIcon()
 icon = QIcon(icn)
 tray.setIcon(icon)
 tray.setToolTip(avail)
 tray.setVisible(True)
 
-# Creating the options
+# Creating the menu/options
 menu = QMenu()
 runUpdate = QAction("Run Update")
 readNews = QAction("Read the News")
+quit = QAction("Quit")
 runUpdate.triggered.connect(update)
 readNews.triggered.connect(news)
-
-# To quit the app
-quit = QAction("Quit")
 quit.triggered.connect(app.quit)
 
-# Place the app in the System Tray
+# Place the menu in the System Tray
 tray.setContextMenu(menu)
 
 app.exec_()
