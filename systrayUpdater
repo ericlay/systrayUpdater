@@ -38,8 +38,8 @@ def count():
         tray.setVisible(False)
     else:
         menu.clear()
-        menu.addAction(runUpdate)
         menu.addAction(readNews)
+        menu.addAction(runUpdate)
         menu.addAction(quit)
         for i in outputList.splitlines():
             menu.addAction(i, partial(infos, i))
