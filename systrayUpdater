@@ -38,6 +38,10 @@ def count():
         tray.setVisible(False)
     else:
         tray.setVisible(True)
+        menu.clear()
+        menu.addAction(runUpdate)
+        menu.addAction(readNews)
+        menu.addAction(quit)
         for i in outputList.splitlines():
             menu.addAction(i, partial(infos, i))
         global avail
@@ -56,13 +60,6 @@ def infos(pkgString):
     url = 'https://archlinux.org/packages/?q='+ pkg[0]
     webbrowser.open_new_tab(url)
 
-# Clear old update list when new list available
-def clear():
-    menu.clear()
-    menu.addAction(option1)
-    menu.addAction(option2)
-    menu.addAction(quit)
-
 # Run system updatehttps://archlinux.org/packages/?q='+ pkg[0]
 def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu' ]
@@ -74,13 +71,9 @@ app = QApplication([])
 app.setQuitOnLastWindowClosed(False)
 
 # Set up timer to update count
-clearTimer = QTimer()
-clearTimer.timeout.connect(clear)
 updateTimer = QTimer()
 updateTimer.timeout.connect(count)
 updateTimer.singleShot(1,count) # Initially populate available updates
-clearTimer.start(wait)
-sleep(1)
 updateTimer.start(wait)
 
 # Adding items to the menu 
@@ -92,17 +85,14 @@ tray.setVisible(True)
 
 # Creating the options
 menu = QMenu()
-option1 = QAction("Run Update")
-option2 = QAction("Read the News")
-option1.triggered.connect(update)
-option2.triggered.connect(news)
-menu.addAction(option1)
-menu.addAction(option2)
+runUpdate = QAction("Run Update")
+readNews = QAction("Read the News")
+runUpdate.triggered.connect(update)
+readNews.triggered.connect(news)
 
 # To quit the app
 quit = QAction("Quit")
 quit.triggered.connect(app.quit)
-menu.addAction(quit)
 
 # Place the app in the System Tray
 tray.setContextMenu(menu)
