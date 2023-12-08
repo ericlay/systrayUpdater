@@ -1,6 +1,6 @@
 # Maintainer: Eric Lay <ericlaytm@gmail.com>
 pkgname=systrayupdater
-pkgver=r34.1698671
+pkgver=r35.0af7ad3
 pkgrel=1
 pkgdesc="PyQt5 system tray applet to notify of available updates"
 arch=('x86_64')

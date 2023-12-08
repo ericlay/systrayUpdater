@@ -17,7 +17,7 @@ outputList = ""
 
 # Use config.yml file to allow for compatibility with
 # most terminal emulators possible & custom icon / timer duration
-with open(path.expanduser("~/.config/systrayUpdater/systrayupdater.yml")) as f:
+with open(path.expanduser("~/.config/systrayupdater/systrayupdater.yml")) as f:
     conf = yaml.load(f, yaml.FullLoader)
     term = str(conf['terminal'])
     opt = str(conf['option'])
