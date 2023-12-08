@@ -24,6 +24,6 @@ pkgver(){
 package() {
 	cd "$srcdir/$pkgname"
 	install -Dm755 systrayUpdater -t "$pkgdir/usr/bin"
-	install -Dm666 systrayUpdater.desktop -t "$pkgdir/usr/share/applications"
+	install -Dm666 SysTrayUpdater.desktop -t "$pkgdir/usr/share/applications"
 	install -Dm755 ./*.png systrayupdater.yml -t "$pkgdir/$HOME/.config/$pkgname"
 }
