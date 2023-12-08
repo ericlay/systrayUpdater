@@ -13,7 +13,7 @@ depends=('python'
 	'pacman')
 makedepends=('git')
 optdepends=()
-source=("git+https://github.com/ericlay/fuzzy-pkg-finder.git")
+source=("git+https://github.com/ericlay/$pkgname.git")
 md5sums=('SKIP')
 
 pkgver(){
