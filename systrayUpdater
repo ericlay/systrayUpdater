@@ -37,7 +37,6 @@ def count():
     if outputCount == 0:
         tray.setVisible(False)
     else:
-        tray.setVisible(True)
         menu.clear()
         menu.addAction(runUpdate)
         menu.addAction(readNews)
@@ -47,6 +46,7 @@ def count():
         global avail
         avail = str(outputCount)+" Updates"
         tray.setToolTip(avail)
+        tray.setVisible(True)
 
 # Read the News
 # Get pkg info
