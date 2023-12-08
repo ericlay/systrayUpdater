@@ -17,12 +17,12 @@ outputList = ""
 
 # Use config.yml file to allow for compatibility with
 # most terminal emulators possible & custom icon / timer duration
-with open(path.expanduser("~/.config/systrayUpdater/systrayUpdater.yml")) as f:
+with open(path.expanduser("~/.config/systrayUpdater/systrayupdater.yml")) as f:
     conf = yaml.load(f, yaml.FullLoader)
     term = str(conf['terminal'])
     opt = str(conf['option'])
     wait = int(conf['timer']) * 60000
-    icn = path.join(path.expanduser("~/.config/systrayUpdater/"), str(conf['icon']))
+    icn = path.join(path.expanduser("~/.config/systrayupdater/"), str(conf['icon']))
     f.close()
 
 # Run checkupdates command
