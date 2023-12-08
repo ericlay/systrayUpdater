@@ -3,8 +3,8 @@
 # ----------------#
 
 # Terminal emulator launch command and execute option
-terminal: terminator
-option: -x
+terminal: $TERM
+option: -e
 # timer value is set to minutes
 timer: 10
 # custom icons should follow Arch linux standards

@@ -2,14 +2,18 @@
 
 # Get needed modules
 import yaml
+import webbrowser
 import subprocess
 from os import path
+from time import sleep
+from functools import partial
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-# Available Updates count holder
+# Available Updates holders
 avail = ""
+outputList = ""
 
 # Use config.yml file to allow for compatibility with
 # most terminal emulators possible & custom icon / timer duration
@@ -22,59 +26,85 @@ with open(path.expanduser("~/.config/systrayUpdater/systrayUpdater.yml")) as f:
     f.close()
 
 # Run checkupdates command
-# Populates the available updates count holder
+# Populates the available updates and count
+# Sets the list and count in proper spots
 def count():
     cmd = ['checkupdates']
     p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-    p2 = subprocess.Popen(['wc', '-l'], stdin=p1.stdout, stdout=subprocess.PIPE)
-    output = ((p2.communicate()[0]).decode()).rstrip('\n')
-    global avail
-    avail = str(output)+" Updates"
+    global outputList
+    outputList = ((p1.communicate()[0]).decode()).rstrip('\n')
+    outputCount = len(outputList.splitlines())
+    if outputCount == 0:
+        tray.setVisible(False)
+    else:
+        tray.setVisible(True)
+        for i in outputList.splitlines():
+            menu.addAction(i, partial(infos, i))
+        global avail
+        avail = str(outputCount)+" Updates"
+        tray.setToolTip(avail)
 
-# Run system update
+# Read the News
+# Get pkg info
+def news():
+    url = 'https://archlinux.org/news/'
+    webbrowser.open_new_tab(url)
+    
+# Get pkg info
+def infos(pkgString):
+    pkg = pkgString.split(' ')
+    url = 'https://archlinux.org/packages/?q='+ pkg[0]
+    webbrowser.open_new_tab(url)
+
+# Clear old update list when new list available
+def clear():
+    menu.clear()
+    menu.addAction(option1)
+    menu.addAction(option2)
+    menu.addAction(quit)
+
+# Run system updatehttps://archlinux.org/packages/?q='+ pkg[0]
 def update():
-    cmd = [ term, opt, 'sudo', 'pacman', '-Syu']
+    cmd = [ term, opt, 'sudo', 'pacman', '-Syu' ]
     subprocess.Popen(cmd)
+    clear()
 
-# Sets new text for available updates
-def newText():
-    count()
-    option1.setText(avail)
-    tray.setToolTip(avail)
-
-# Initially populate available updates
-count()
-
+# Create an app surface
 app = QApplication([])
 app.setQuitOnLastWindowClosed(False)
 
-# Adding an icon
-icon = QIcon(icn)
+# Set up timer to update count
+clearTimer = QTimer()
+clearTimer.timeout.connect(clear)
+updateTimer = QTimer()
+updateTimer.timeout.connect(count)
+updateTimer.singleShot(1,count) # Initially populate available updates
+clearTimer.start(wait)
+sleep(1)
+updateTimer.start(wait)
 
-# Adding item on the menu bar
+# Adding items to the menu 
 tray = QSystemTrayIcon()
+icon = QIcon(icn)
 tray.setIcon(icon)
 tray.setToolTip(avail)
 tray.setVisible(True)
 
 # Creating the options
 menu = QMenu()
-option1 = QAction(avail)
+option1 = QAction("Run Update")
+option2 = QAction("Read the News")
 option1.triggered.connect(update)
-option1.triggered.connect(newText)
+option2.triggered.connect(news)
 menu.addAction(option1)
-
-# Set up timer to update count
-timer = QTimer()
-timer.timeout.connect(newText)
-timer.start(wait)
+menu.addAction(option2)
 
 # To quit the app
 quit = QAction("Quit")
 quit.triggered.connect(app.quit)
 menu.addAction(quit)
 
-# Adding options to the System Tray
+# Place the app in the System Tray
 tray.setContextMenu(menu)
 
 app.exec_()

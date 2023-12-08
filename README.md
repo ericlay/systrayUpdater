@@ -1,7 +1,12 @@
 # systrayUpdater
-Simple Qt based system tray icon to notify of available updates and then update on click
+PyQt5 system tray applet to notify of available updates.
 
 For Arch (based) systems only!
+
+Right click to access menu actions:
+-Run update
+-Read the News
+-Display list of packages with updates available (click to search arch website for highlighted package)
 
 To install and use: Place files in appropriate locations and run appropriate commands when doing so
 
@@ -14,5 +19,3 @@ Includes:
 - .desktop file for autostarting
 - Tray and shortcut icons
 
-TODO
-- look into adding option to view news or quick list
