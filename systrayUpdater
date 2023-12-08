@@ -64,7 +64,7 @@ def infos(pkgString):
 def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu' ]
     subprocess.Popen(cmd)
-    clear()
+    count()
 
 # Create an app surface
 app = QApplication([])
