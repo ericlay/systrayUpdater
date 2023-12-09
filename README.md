@@ -15,10 +15,11 @@ cd systrayUpdater
 makepkg -sric
 ```
 
-Uses config file for options: `$HOME/.config/systrayupdater/systrayupdater.yml`
+Uses config file for options: `/etc/systrayupdater/config.yml`
 - Terminal command and option (usually `-e`)
 - Timer duration for `checkupdates` to run in backgound
 - Custom system tray icon
+- Override by copying file to `$HOME/systrayupdater/config.yml`
 
 Includes:
 - .desktop file for autostarting
