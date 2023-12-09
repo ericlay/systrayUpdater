@@ -1,6 +1,6 @@
 # Maintainer: Eric Lay <ericlaytm@gmail.com>
 pkgname=systrayupdater
-pkgver=r36.ba00462
+pkgver=r47.a550ac3
 pkgrel=1
 pkgdesc="PyQt5 system tray applet notifier of available updates"
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('GPL3')
 depends=('python'
     'python-pyqt5'
 	'python-yaml'
-	'python-jaraco.functools'
+	'hicolor-icon-theme'
 	'pacman')
 makedepends=('git')
 optdepends=()
