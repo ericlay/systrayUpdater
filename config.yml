@@ -9,4 +9,4 @@ option: -e
 timer: 10
 # custom icons should follow Arch linux standards
 # custom icons should be stored in ~/.config/systrayUpdater
-icon: white-logo.png
+icon: arch-white-symbolic-24.svg
