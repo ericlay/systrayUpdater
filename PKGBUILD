@@ -1,5 +1,5 @@
 # Maintainer: Eric Lay <ericlaytm@gmail.com>
-pkgname=systrayupdate-notifier
+pkgname=systrayupdater
 pkgver=r36.ba00462
 pkgrel=1
 pkgdesc="PyQt5 system tray applet notifier of available updates"
@@ -23,7 +23,7 @@ pkgver(){
 
 package() {
 	cd "$srcdir/$pkgname"
-	install -Dm755 systrayupdater -t "$pkgdir/usr/bin"
+	install -Dm755 systray-updater -t "$pkgdir/usr/bin"
 	install -Dm755 config.yml -t "$pkgdir/etc/$pkgname"
 	install -Dm666 systrayupdater.desktop -t "$pkgdir/usr/share/applications"
 	install -Dm644 ./*.svg -t "$pkgdir/usr/share/icons/hicolor/symbolic/apps"
