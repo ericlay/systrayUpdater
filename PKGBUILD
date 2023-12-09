@@ -9,8 +9,8 @@ license=('GPL3')
 depends=('python'
     'python-pyqt5'
 	'python-yaml'
-	'hicolor-icon-theme'
-	'pacman')
+	'pacman-contrib'
+	'hicolor-icon-theme')
 makedepends=('git')
 optdepends=()
 source=("git+https://github.com/ericlay/$pkgname.git")

@@ -27,7 +27,7 @@ try:
 except FileNotFoundError:
     print("No config file found\n")
     sys.exit()
-conf = yaml.load(f, yaml.FullLoader)
+conf = yaml.load(f,yaml.FullLoader)
 term = str(conf['terminal'])
 opt = str(conf['option'])
 wait = int(conf['timer']) * 60000
@@ -37,30 +37,30 @@ f.close()
 iconDir = '/usr/share/icons/hicolor/symbolic/apps/'
 match icn:
     case "white":
-        icon = QIcon(path.join(iconDir, 'arch-white-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-white-symbolic-24.svg'))
     case "blue":
-        icon = QIcon(path.join(iconDir, 'arch-blue-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-blue-symbolic-24.svg'))
     case "red":
-        icon = QIcon(path.join(iconDir, 'arch-red-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-red-symbolic-24.svg'))
     case "green":
-        icon = QIcon(path.join(iconDir, 'arch-green-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-green-symbolic-24.svg'))
     case "purple":
-        icon = QIcon(path.join(iconDir, 'arch-purple-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-purple-symbolic-24.svg'))
     case "yellow":
-        icon = QIcon(path.join(iconDir, 'arch-yellow-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-yellow-symbolic-24.svg'))
     case "black":
-        icon = QIcon(path.join(iconDir, 'arch-black-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-black-symbolic-24.svg'))
     case "gray":
-        icon = QIcon(path.join(iconDir, 'arch-gray-symbolic-24.svg'))
+        icon = QIcon(path.join(iconDir,'arch-gray-symbolic-24.svg'))
     case _:
-        icon = QIcon(path.join(path.expanduser("~/.config/systrayupdater/"), icn))
+        icon = QIcon(path.join(path.expanduser("~/.config/systrayupdater/"),icn))
 
 # Run checkupdates command
 # Populates the available updates and count
 # Sets the menu options, list and count in proper spots
 def count():
     cmd = ['checkupdates']
-    p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    p1 = subprocess.Popen(cmd,stdout=subprocess.PIPE)
     global outputList
     outputList = ((p1.communicate()[0]).decode()).rstrip('\n')
     outputCount = len(outputList.splitlines())
@@ -105,12 +105,6 @@ updateTimer.timeout.connect(count)
 updateTimer.singleShot(1,count) # Initially populate available updates
 updateTimer.start(wait)
 
-# Adding items to the tray
-tray = QSystemTrayIcon()
-tray.setIcon(icon)
-tray.setToolTip(avail)
-tray.setVisible(True)
-
 # Creating the menu/options
 menu = QMenu()
 runUpdate = QAction("Run Update")
@@ -120,7 +114,9 @@ runUpdate.triggered.connect(update)
 readNews.triggered.connect(news)
 quit.triggered.connect(app.quit)
 
-# Place the menu in the System Tray
+# Create applet and place menu in it
+tray = QSystemTrayIcon()
+tray.setIcon(icon)
 tray.setContextMenu(menu)
 
 app.exec_()

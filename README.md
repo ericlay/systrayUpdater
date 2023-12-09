@@ -1,4 +1,4 @@
-# systrayUpdater
+# systrayUpdater 󱉛
 PyQt5 system tray applet notifier of available updates.
 
 For Arch (based) systems only!
