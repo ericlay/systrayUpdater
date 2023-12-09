@@ -37,23 +37,23 @@ f.close()
 iconDir = '/usr/share/icons/hicolor/symbolic/apps/'
 match icn:
     case "white":
-        iconFile = path.join(iconDir, 'arch-white-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-white-symbolic-24.svg'))
     case "blue":
-        iconFile = path.join(iconDir, 'arch-blue-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-blue-symbolic-24.svg'))
     case "red":
-        iconFile = path.join(iconDir, 'arch-red-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-red-symbolic-24.svg'))
     case "green":
-        iconFile = path.join(iconDir, 'arch-green-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-green-symbolic-24.svg'))
     case "purple":
-        iconFile = path.join(iconDir, 'arch-purple-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-purple-symbolic-24.svg'))
     case "yellow":
-        iconFile = path.join(iconDir, 'arch-yellow-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-yellow-symbolic-24.svg'))
     case "black":
-        iconFile = path.join(iconDir, 'arch-black-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-black-symbolic-24.svg'))
     case "gray":
-        iconFile = path.join(iconDir, 'arch-gray-symbolic-24.svg')
+        icon = QIcon(path.join(iconDir, 'arch-gray-symbolic-24.svg'))
     case _:
-        iconFile = path.join(path.expanduser("~/.config/systrayupdater/"), icn)
+        icon = QIcon(path.join(path.expanduser("~/.config/systrayupdater/"), icn))
 
 # Run checkupdates command
 # Populates the available updates and count
@@ -107,7 +107,6 @@ updateTimer.start(wait)
 
 # Adding items to the tray
 tray = QSystemTrayIcon()
-icon = QIcon(iconFile)
 tray.setIcon(icon)
 tray.setToolTip(avail)
 tray.setVisible(True)
