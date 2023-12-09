@@ -117,6 +117,7 @@ quit.triggered.connect(app.quit)
 # Create applet and place menu in it
 tray = QSystemTrayIcon()
 tray.setIcon(icon)
+tray.setVisible(True)
 tray.setContextMenu(menu)
 
 app.exec_()
