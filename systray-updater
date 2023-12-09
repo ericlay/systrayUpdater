@@ -16,23 +16,48 @@ avail = ""
 outputList = ""
 
 # Use config.yml file to allow for compatibility with
-# most terminal emulators possible & custom icon / timer duration
+# most terminal emulators possible, custom timer duration and icons
 if path.exists(path.expanduser("~/.config/systrayupdater/config.yml")):
     config = path.expanduser("~/.config/systrayupdater/config.yml")
 else:
-    config = '/etc/systrayupdater/config.yml'  
+    config = '/etc/systrayupdater/config.yml'
 
-with open(config) as f:
-    conf = yaml.load(f, yaml.FullLoader)
-    term = str(conf['terminal'])
-    opt = str(conf['option'])
-    wait = int(conf['timer']) * 60000
-    icn = path.join('/usr/share/icons/hicolor/symbolic/apps/', str(conf['icon']))
-    f.close()
+try:
+    f = open(config)
+except FileNotFoundError:
+    print("No config file found\n")
+    sys.exit()
+conf = yaml.load(f, yaml.FullLoader)
+term = str(conf['terminal'])
+opt = str(conf['option'])
+wait = int(conf['timer']) * 60000
+icn = str(conf['icon'])
+f.close()
+
+iconDir = '/usr/share/icons/hicolor/symbolic/apps/'
+match icn:
+    case "white":
+        iconFile = path.join(iconDir, 'arch-white-symbolic-24.svg')
+    case "blue":
+        iconFile = path.join(iconDir, 'arch-blue-symbolic-24.svg')
+    case "red":
+        iconFile = path.join(iconDir, 'arch-red-symbolic-24.svg')
+    case "green":
+        iconFile = path.join(iconDir, 'arch-green-symbolic-24.svg')
+    case "purple":
+        iconFile = path.join(iconDir, 'arch-purple-symbolic-24.svg')
+    case "yellow":
+        iconFile = path.join(iconDir, 'arch-yellow-symbolic-24.svg')
+    case "black":
+        iconFile = path.join(iconDir, 'arch-black-symbolic-24.svg')
+    case "gray":
+        iconFile = path.join(iconDir, 'arch-gray-symbolic-24.svg')
+    case _:
+        iconFile = path.join(path.expanduser("~/.config/systrayupdater/"), icn)
 
 # Run checkupdates command
 # Populates the available updates and count
-# Sets the list and count in proper spots
+# Sets the menu options, list and count in proper spots
 def count():
     cmd = ['checkupdates']
     p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE)
@@ -54,7 +79,6 @@ def count():
         tray.setVisible(True)
 
 # Read the News
-# Get pkg info
 def news():
     url = 'https://archlinux.org/news/'
     webbrowser.open_new_tab(url)
@@ -65,7 +89,7 @@ def infos(pkgString):
     url = 'https://archlinux.org/packages/?q='+ pkg[0]
     webbrowser.open_new_tab(url)
 
-# Run system updatehttps://archlinux.org/packages/?q='+ pkg[0]
+# Run system update
 def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu' ]
     subprocess.Popen(cmd)
@@ -83,7 +107,7 @@ updateTimer.start(wait)
 
 # Adding items to the tray
 tray = QSystemTrayIcon()
-icon = QIcon(icn)
+icon = QIcon(iconFile)
 tray.setIcon(icon)
 tray.setToolTip(avail)
 tray.setVisible(True)

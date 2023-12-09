@@ -1,12 +1,10 @@
-# ----------------#
 #  systrayUpdater #
 # ----------------#
-
 # Terminal emulator launch command and execute option
 terminal: $TERM
 option: -e
 # timer value is set to minutes
 timer: 10
-# custom icons should follow Arch linux standards
-# custom icons should be stored in ~/.config/systrayUpdater
-icon: arch-white-symbolic-24.svg
+# Icons can be set to pre-defined colors:  red, purple, blue, green, yellow, white, gray and black
+# Custom icons should be placed in "~/.config/systrayupdater" and file name provided
+icon: white
