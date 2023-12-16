@@ -8,12 +8,8 @@ import subprocess
 from os import path
 from functools import partial
 from PyQt5.QtCore import QTimer
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-
-# Available Updates holders
-avail = ""
-outputList = ""
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QAction, QApplication, QSystemTrayIcon, QMenu
 
 # Use config.yml file to allow for compatibility with
 # most terminal emulators possible, custom timer duration and icons
@@ -61,7 +57,6 @@ match icn:
 def count():
     cmd = ['checkupdates']
     p1 = subprocess.Popen(cmd,stdout=subprocess.PIPE)
-    global outputList
     outputList = ((p1.communicate()[0]).decode()).rstrip('\n')
     outputCount = len(outputList.splitlines())
     if outputCount == 0:
@@ -73,7 +68,6 @@ def count():
         menu.addAction(quit)
         for i in outputList.splitlines():
             menu.addAction(i, partial(infos, i))
-        global avail
         avail = str(outputCount)+" Updates"
         tray.setToolTip(avail)
         tray.setVisible(True)
