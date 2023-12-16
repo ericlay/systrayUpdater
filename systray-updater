@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 # Get needed modules
+import sys
 import yaml
 import webbrowser
 import subprocess
 from os import path
-from time import sleep
 from functools import partial
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import *
@@ -26,7 +26,7 @@ try:
     f = open(config)
 except FileNotFoundError:
     print("No config file found\n")
-    sys.exit()
+    sys.exit(1)
 conf = yaml.load(f,yaml.FullLoader)
 term = str(conf['terminal'])
 opt = str(conf['option'])
@@ -34,7 +34,7 @@ wait = int(conf['timer']) * 60000
 icn = str(conf['icon'])
 f.close()
 
-iconDir = '/usr/share/icons/hicolor/symbolic/apps/'
+iconDir = '/usr/share/icons/systrayupdater/'
 match icn:
     case "white":
         icon = QIcon(path.join(iconDir,'arch-white-symbolic-24.svg'))

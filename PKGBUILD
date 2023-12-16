@@ -1,6 +1,6 @@
 # Maintainer: Eric Lay <ericlaytm@gmail.com>
 pkgname=systrayupdater
-pkgver=r52.4ba5e77
+pkgver=r53.3a58e9a
 pkgrel=1
 pkgdesc="PyQt5 system tray applet notifier of available updates"
 arch=('any')
@@ -26,5 +26,5 @@ package() {
 	install -Dm755 systray-updater -t "$pkgdir/usr/bin"
 	install -Dm755 config.yml -t "$pkgdir/etc/$pkgname"
 	install -Dm666 systrayupdater.desktop -t "$pkgdir/usr/share/applications"
-	install -Dm644 icons/*.svg -t "$pkgdir/usr/share/icons/hicolor/symbolic/apps"
+	install -Dm644 icons/*.svg -t "$pkgdir/usr/share/icons/$pkgname"
 }
