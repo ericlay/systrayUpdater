@@ -21,7 +21,7 @@ else:
 try:
     f = open(config)
 except FileNotFoundError:
-    print("No config file found\n")
+    print("Error: No config file found\n")
     sys.exit(1)
 conf = yaml.load(f,yaml.FullLoader)
 term = str(conf['terminal'])
@@ -56,22 +56,29 @@ match icn:
 # Sets the menu options, list and count in proper spots
 def count():
     cmd = ['checkupdates']
-    p1 = subprocess.Popen(cmd,stdout=subprocess.PIPE)
-    outputList = ((p1.communicate()[0]).decode()).rstrip('\n')
-    outputCount = len(outputList.splitlines())
-    if outputCount == 0:
+    try:
+        p1 = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+        outputList = ((p1.communicate()[0]).decode()).rstrip('\n')
+        outputCount = len(outputList.splitlines())
+        if outputCount == 0:
+            tray.setVisible(False)
+        else:
+            menu.clear()
+            menu.addAction(readNews)
+            menu.addAction(runUpdate)
+            menu.addAction(quit)
+            for i in outputList.splitlines():
+                menu.addAction(i, partial(infos, i))
+            avail = str(outputCount)+" Updates"
+            tray.setToolTip(avail)
+            tray.setVisible(True)
+    except subprocess.CalledProcessError:
         tray.setVisible(False)
-    else:
-        menu.clear()
-        menu.addAction(readNews)
-        menu.addAction(runUpdate)
-        menu.addAction(quit)
-        for i in outputList.splitlines():
-            menu.addAction(i, partial(infos, i))
-        avail = str(outputCount)+" Updates"
-        tray.setToolTip(avail)
-        tray.setVisible(True)
-
+        wait = 1800000
+        updateTimer.killTimer
+        updateTimer.start(wait)
+        print("Error: \'checkupdates\' command unable to retrieve updates\nSetting timer to 30mins\n")
+            
 # Read the News
 def news():
     url = 'https://archlinux.org/news/'
