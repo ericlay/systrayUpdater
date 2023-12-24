@@ -73,11 +73,11 @@ def count():
             tray.setToolTip(avail)
             tray.setVisible(True)
     except subprocess.CalledProcessError:
-        tray.setVisible(False)
-        wait = 1800000
-        updateTimer.killTimer
-        updateTimer.start(wait)
-        print("Error: \'checkupdates\' command unable to retrieve updates\nSetting timer to 30mins\n")
+            tray.setVisible(False)
+            wait = 1800000
+            updateTimer.killTimer
+            updateTimer.start(wait)
+            print("Error: \'checkupdates\' command unable to retrieve updates\nSetting timer to 30mins\n")
             
 # Read the News
 def news():
@@ -94,7 +94,7 @@ def infos(pkgString):
 def update():
     cmd = [ term, opt, 'sudo', 'pacman', '-Syu' ]
     subprocess.Popen(cmd)
-    count()
+    updateTimer.singleShot(1,count)
 
 # Create an app surface
 app = QApplication([])
